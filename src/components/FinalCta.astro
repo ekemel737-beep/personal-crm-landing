@@ -1,0 +1,13 @@
+---
+import Button from './Button.astro';
+import { landing } from '../content/landing';
+
+const { cta, final } = landing;
+---
+
+<section aria-labelledby="final-title">
+  <div class="mx-auto flex max-w-page flex-col gap-8 px-6 pt-18 lg:items-start lg:gap-12 lg:px-20 lg:pt-35">
+    <h2 id="final-title" class="max-w-h2-final font-display text-h2-final font-bold">{final.title}</h2>
+    <Button variant="signal" cta="final">{cta}</Button>
+  </div>
+</section>

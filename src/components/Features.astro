@@ -1,0 +1,31 @@
+---
+import SearchPill from './SearchPill.astro';
+import SectionLabel from './SectionLabel.astro';
+import { landing } from '../content/landing';
+
+const { features } = landing;
+---
+
+<section aria-labelledby="features-label">
+  <div
+    class="mx-auto flex max-w-page flex-col gap-7 px-6 pt-14 pb-18 lg:grid lg:grid-cols-12 lg:gap-x-8 lg:px-20 lg:pt-20 lg:pb-30"
+  >
+    <SectionLabel id="features-label" class="lg:col-span-3">{features.label}</SectionLabel>
+
+    <ul class="flex flex-col border-t-strong lg:col-span-9 lg:grid lg:grid-cols-3 lg:gap-x-8 lg:border-t-0">
+      {
+        features.items.map((item) => (
+          <li
+            class:list={[
+              'flex flex-col border-b py-5 lg:border-t-strong lg:border-b-0 lg:pt-6 lg:pb-0',
+              'query' in item ? 'gap-2.5 lg:gap-4' : 'gap-1.5 lg:gap-3',
+            ]}
+          >
+            <h3 class="font-display text-h3 font-medium">{item.title}</h3>
+            {'query' in item ? <SearchPill>{item.query}</SearchPill> : <p class="text-feature">{item.text}</p>}
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>

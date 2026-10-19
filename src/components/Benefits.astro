@@ -1,0 +1,22 @@
+---
+import SectionLabel from './SectionLabel.astro';
+import { landing } from '../content/landing';
+
+const { benefits } = landing;
+---
+
+<section aria-labelledby="benefits-label" class="bg-sand">
+  <div class="mx-auto flex max-w-page flex-col gap-10 px-6 py-18 lg:grid lg:grid-cols-12 lg:gap-x-8 lg:px-20 lg:py-30">
+    <SectionLabel id="benefits-label" class="lg:col-span-3">{benefits.label}</SectionLabel>
+
+    <ul class="flex flex-col gap-10 lg:col-span-9 lg:grid lg:grid-cols-3 lg:gap-x-8">
+      {
+        benefits.items.map((item) => (
+          <li>
+            <h3 class="font-display text-benefit font-bold">{item}</h3>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>

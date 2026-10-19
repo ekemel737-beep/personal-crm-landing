@@ -1,0 +1,13 @@
+@import "tailwindcss";
+@import "./fonts.css";
+@import "./tokens.css";
+
+@layer base {
+  html {
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+}

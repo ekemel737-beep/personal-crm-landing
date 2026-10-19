@@ -1,0 +1,25 @@
+/* src/styles/global.css — Tailwind CSS 4 */
+@import "tailwindcss";
+
+@import "@fontsource-variable/unbounded";
+@import "@fontsource-variable/onest";
+
+@theme {
+  --color-paper: #F1EEE7;
+  --color-sand: #E4DFD3;
+  --color-ink: #141414;
+  --color-signal: #FF4D1F;
+
+  --font-display: "Unbounded Variable", "Unbounded", system-ui, sans-serif;
+  --font-sans: "Onest Variable", "Onest", system-ui, sans-serif;
+}
+
+@layer base {
+  html {
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+}

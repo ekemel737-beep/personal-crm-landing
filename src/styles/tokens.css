@@ -1,0 +1,167 @@
+/*
+ * Design tokens — the only source of colors, fonts, spacing and type sizes.
+ * Values come from design/SPEC.md and design/reference/*.html.
+ *
+ * Type roles are responsive: the base value is mobile (390), the override in
+ * the media query at the bottom is desktop (lg, 1024+). Components use one
+ * class per role, e.g. `text-h1`, and never set sizes themselves.
+ * Large display sizes scale with clamp(): mobile size → desktop size at 1440.
+ */
+
+@theme {
+  /* Colors: the whole palette */
+  --color-*: initial;
+  --color-paper: #F1EEE7;
+  --color-sand: #E4DFD3;
+  --color-ink: #141414;
+  --color-signal: #FF4D1F;
+
+  /* Fonts */
+  --font-display: "Unbounded Variable", "Unbounded", system-ui, sans-serif;
+  --font-sans: "Onest Variable", "Onest", system-ui, sans-serif;
+
+  /* Spacing: 4px step (p-6 = 24px, gap-12 = 48px) */
+  --spacing: 0.25rem;
+
+  /* Content widths */
+  --container-page: 1440px;
+  --container-hero-title: 1180px;
+  --container-hero-lead: 310px;
+  --container-lead: 760px;
+  --container-h2: 900px;
+  --container-h2-final: 1100px;
+
+  /* Lines: 1px default (`border-t`), 1.5px for main dividers */
+  --border-width-strong: 1.5px;
+
+  /* Type scale (mobile) */
+  --text-*: initial;
+
+  --text-logo: 16px;
+  --text-logo--line-height: normal;
+  --text-logo--letter-spacing: -0.02em;
+
+  --text-label: 13px;
+  --text-label--line-height: normal;
+
+  --text-footer: 13px;
+  --text-footer--line-height: normal;
+
+  --text-button: 17px;
+  --text-button--line-height: normal;
+
+  --text-button-final: 17px;
+  --text-button-final--line-height: normal;
+
+  --text-h1: clamp(40px, 100vw / 15, 96px);
+  --text-h1--line-height: 1.04;
+  --text-h1--letter-spacing: -0.035em;
+
+  --text-hero-lead: 18px;
+  --text-hero-lead--line-height: 1.4;
+
+  --text-quote-old: 16px;
+  --text-quote-old--line-height: normal;
+
+  --text-quote: 20px;
+  --text-quote--line-height: 1.3;
+
+  --text-mega: clamp(56px, 100vw / 9, 160px);
+  --text-mega--line-height: 1;
+  --text-mega--letter-spacing: -0.04em;
+
+  --text-lead: clamp(24px, 100vw / 40, 36px);
+  --text-lead--line-height: 1.25;
+
+  --text-dialog: 20px;
+  --text-dialog--line-height: normal;
+
+  --text-dialog-body: 17px;
+  --text-dialog-body--line-height: 1.45;
+
+  --text-insight: 20px;
+  --text-insight--line-height: 1.25;
+
+  --text-insight-body: 17px;
+  --text-insight-body--line-height: 1.5;
+
+  --text-h2: clamp(30px, 100vw / 24, 60px);
+  --text-h2--line-height: 1.1;
+  --text-h2--letter-spacing: -0.03em;
+
+  --text-body: 18px;
+  --text-body--line-height: 1.45;
+
+  --text-stat: clamp(64px, 100vw / 12, 120px);
+  --text-stat--line-height: 1;
+  --text-stat--letter-spacing: -0.04em;
+
+  --text-stat-caption: 18px;
+  --text-stat-caption--line-height: 1.35;
+
+  --text-h3: 19px;
+  --text-h3--line-height: normal;
+
+  --text-feature: 16px;
+  --text-feature--line-height: 1.45;
+
+  --text-pill: 15px;
+  --text-pill--line-height: normal;
+
+  --text-benefit: clamp(24px, 100vw / 40, 36px);
+  --text-benefit--line-height: 1.15;
+  --text-benefit--letter-spacing: -0.02em;
+
+  --text-h2-final: clamp(32px, 100vw / 20, 72px);
+  --text-h2-final--line-height: 1.08;
+  --text-h2-final--letter-spacing: -0.03em;
+}
+
+/* Desktop overrides (lg) */
+@media (width >= 64rem) {
+  :root {
+    --container-hero-lead: 380px;
+
+    --text-logo: 22px;
+    --text-label: 15px;
+    --text-footer: 14px;
+    --text-button: 19px;
+    --text-button-final: 22px;
+
+    --text-h1--line-height: 1.02;
+    --text-h1--letter-spacing: -0.04em;
+
+    --text-hero-lead: 22px;
+    --text-quote-old: 18px;
+    --text-quote: 24px;
+
+    --text-mega--line-height: 0.95;
+    --text-mega--letter-spacing: -0.05em;
+    --text-lead--line-height: 1.2;
+
+    --text-dialog: 24px;
+    --text-dialog-body: 19px;
+    --text-insight: 24px;
+    --text-insight-body: 19px;
+
+    --text-h2--line-height: 1.06;
+    --text-h2--letter-spacing: -0.035em;
+
+    --text-body: 22px;
+
+    --text-stat--line-height: 0.9;
+    --text-stat--letter-spacing: -0.05em;
+    --text-stat-caption: 20px;
+
+    --text-h3: 24px;
+    --text-feature: 18px;
+    --text-pill: 16px;
+    --text-pill--line-height: 1.3;
+
+    --text-benefit--line-height: 1.12;
+    --text-benefit--letter-spacing: -0.025em;
+
+    --text-h2-final--line-height: 1.04;
+    --text-h2-final--letter-spacing: -0.04em;
+  }
+}

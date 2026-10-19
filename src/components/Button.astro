@@ -1,0 +1,49 @@
+---
+// CTA link to the app. `cta` sets the size and the analytics tag.
+interface Props {
+  variant: 'dark' | 'signal';
+  cta: 'hero' | 'final';
+  class?: string;
+}
+
+const { variant, cta, class: className } = Astro.props;
+const href = import.meta.env.PUBLIC_APP_URL || 'https://app.ekemel.ru';
+
+const variants = {
+  dark: { link: 'bg-ink text-paper', arrow: 'text-signal' },
+  signal: { link: 'bg-signal text-ink', arrow: '' },
+};
+
+const sizes = {
+  hero: { link: 'text-button lg:h-18 lg:px-8', arrow: 'lg:size-6' },
+  final: { link: 'text-button-final lg:h-20 lg:gap-12 lg:px-9', arrow: 'lg:size-6.5' },
+};
+---
+
+<a
+  href={href}
+  data-cta={cta}
+  class:list={[
+    'group flex h-16 items-center justify-between gap-4 rounded-full px-6 font-display font-medium whitespace-nowrap',
+    'focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-ink',
+    variants[variant].link,
+    sizes[cta].link,
+    className,
+  ]}
+>
+  <slot />
+  <svg
+    class:list={[
+      'size-5.5 shrink-0 motion-safe:transition-transform motion-safe:group-hover:translate-x-1',
+      variants[variant].arrow,
+      sizes[cta].arrow,
+    ]}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2.2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    aria-hidden="true"><path d="M5 12h14"></path><path d="M13 6l6 6-6 6"></path></svg
+  >
+</a>

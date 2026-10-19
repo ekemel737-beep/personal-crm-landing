@@ -1,0 +1,24 @@
+---
+import SectionLabel from './SectionLabel.astro';
+import { landing } from '../content/landing';
+
+const { solution } = landing;
+---
+
+<section aria-labelledby="solution-label">
+  <div
+    class="mx-auto flex max-w-page flex-col gap-8 px-6 pt-18 pb-14 lg:grid lg:grid-cols-12 lg:gap-x-8 lg:gap-y-14 lg:px-20 lg:pt-30 lg:pb-20"
+  >
+    <SectionLabel id="solution-label" class="lg:col-span-3">{solution.label}</SectionLabel>
+
+    <h2 class="max-w-h2 font-display text-h2 font-bold lg:col-span-9">{solution.title}</h2>
+
+    <div class="flex flex-col gap-5 lg:contents">
+      <p class="text-body lg:col-span-4 lg:col-start-4">{solution.text}</p>
+      <p class="flex items-baseline gap-3.5 lg:col-span-4 lg:col-start-9 lg:gap-5">
+        <span class="font-display text-stat font-bold text-signal">{solution.stat}</span>
+        <span class="text-stat-caption">{solution.statCaption}</span>
+      </p>
+    </div>
+  </div>
+</section>

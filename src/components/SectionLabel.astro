@@ -1,0 +1,11 @@
+---
+// Small caption above a section; the section uses it as its accessible name
+interface Props {
+  id: string;
+  class?: string;
+}
+
+const { id, class: className } = Astro.props;
+---
+
+<p id={id} class:list={['font-display text-label font-medium', className]}><slot /></p>
