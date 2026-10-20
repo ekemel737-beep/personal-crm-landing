@@ -1,15 +1,15 @@
 # Промпт для Claude Code
 
-Положите папку `kesh-landing-handoff` в корень пустого репозитория, откройте в нём Claude Code и вставьте текст ниже.
+Положите папку `personal-crm-landing` в корень пустого репозитория, откройте в нём Claude Code и вставьте текст ниже.
 
 ---
 
-Сверстай лендинг продукта «КЭШ» (личная CRM) по материалам в папке `kesh-landing-handoff/`.
+Сверстай лендинг продукта «КЭШ» (личная CRM) по материалам в папке `design/`.
 
 Стек: Astro 5 + Tailwind CSS 4 (через `@tailwindcss/vite`, `npx astro add tailwind`), статическая сборка, без клиентского JS. Шрифты Unbounded и Onest — self-hosted через `@fontsource-variable/*`.
 
 Порядок:
-1. Прочитай `kesh-landing-handoff/SPEC.md` целиком — это источник правды по токенам, типографике, раскладке и текстам.
+1. Прочитай `design/SPEC.md` целиком — это источник правды по токенам, типографике, раскладке и текстам.
 2. Отрендери `reference/mobile.html` (viewport 390) и `reference/desktop.html` (viewport 1440) в full-page PNG через Playwright, дождавшись загрузки шрифтов, и посмотри на них — так должна выглядеть страница. Сами html используй как справку по точным отступам, не копируй разметку.
 3. Создай проект Astro, подключи Tailwind 4, перенеси `tokens.css` в `src/styles/global.css`.
 4. Структура: `src/layouts/Base.astro` (head, мета, шрифты), `src/components/` — `Button.astro` (варианты dark / signal), `SectionLabel.astro`, `SearchPill.astro`, по компоненту на секцию (`Hero`, `Problem`, `Solution`, `Features`, `Benefits`, `FinalCta`), тексты — в `src/content/landing.ts`.
