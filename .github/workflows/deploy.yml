@@ -1,0 +1,81 @@
+# Push to main → build dist/ → rsync to the server → check the home page answers 200.
+# No staging, no rollback: if something breaks, fix it and push a new version.
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# One deploy at a time; a newer push waits for the current one to finish
+concurrency:
+  group: deploy
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+env:
+  SITE_DOMAIN: ekemel.ru
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: pnpm/action-setup@v6
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build
+        run: pnpm build
+
+      - name: Stamp version
+        run: echo "$GITHUB_SHA" > dist/version.txt
+
+      - name: Set up SSH
+        env:
+          DEPLOY_KEY: ${{ secrets.DEPLOY_KEY }}
+          DEPLOY_KNOWN_HOSTS: ${{ secrets.DEPLOY_KNOWN_HOSTS }}
+        run: |
+          install -m 700 -d ~/.ssh
+          printf '%s\n' "$DEPLOY_KEY" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          printf '%s\n' "$DEPLOY_KNOWN_HOSTS" > ~/.ssh/known_hosts
+
+      # The key only allows rsync into the landing folder (rrsync on the server),
+      # so the destination path is relative to that folder.
+      # --delay-updates + --delete-after: new files appear together at the end.
+      - name: Upload to server
+        env:
+          DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
+          DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
+        run: |
+          rsync -rlptz --delete-after --delay-updates --chmod=D755,F644 --stats \
+            -e "ssh -i $HOME/.ssh/deploy_key -o IdentitiesOnly=yes -o StrictHostKeyChecking=yes" \
+            dist/ "$DEPLOY_USER@$DEPLOY_HOST:/"
+
+      # Ask our server directly, whatever DNS currently says
+      - name: Check the site
+        env:
+          DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
+        run: |
+          resolve="$SITE_DOMAIN:443:$DEPLOY_HOST"
+          code=$(curl -sS -o /dev/null -w '%{http_code}' --resolve "$resolve" "https://$SITE_DOMAIN/")
+          echo "Home page: HTTP $code"
+          test "$code" = 200
+          live=$(curl -sS --resolve "$resolve" "https://$SITE_DOMAIN/version.txt")
+          echo "Live version: $live, expected: $GITHUB_SHA"
+          test "$live" = "$GITHUB_SHA"
+
+      - name: Remove SSH key
+        if: always()
+        run: rm -f ~/.ssh/deploy_key
